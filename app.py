@@ -9,11 +9,11 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-pokemon-diffusers", torch_dtype=dtype)
+pipe = StableDiffusionPipeline.from_pretrained("eolecvk/sd-naruto-diffusers", torch_dtype=dtype)
 pipe = pipe.to(device)
 
 
-# Sometimes the nsfw checker is confused by the Pokémon images, you can disable
+# Sometimes the nsfw checker is confused by the Naruto images, you can disable
 # it at your own risk here
 disable_safety = True
 
@@ -139,11 +139,11 @@ with block:
                 <img class="logo" src="https://lambdalabs.com/static/images/lambda-logo.svg" alt="Lambda Logo"
                     style="margin: auto; max-width: 7rem;">
                 <h1 style="font-weight: 900; font-size: 3rem;">
-                  Pokémon text to image
+                  Naruto text to image
                 </h1>
               </div>
               <p style="margin-bottom: 10px; font-size: 94%">
-              Generate new Pokémon from a text description,
+              Generate new Naruto anime character from a text description,
                 <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">created by Lambda Labs</a>.
               </p>
             </div>
@@ -193,10 +193,10 @@ with block:
                     </p>
                 </div>
                 <div class="acknowledgments">
-                    <p> Put in a text prompt and generate your own Pokémon character, no "prompt engineering" required!
+                    <p> Put in a text prompt and generate your own Naruto anime character, no "prompt engineering" required!
                     <p>If you want to find out how we made this model read about it in <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">this blog post</a>.
                     <p>And if you want to train your own Stable Diffusion variants, see our <a href="https://github.com/LambdaLabsML/examples/tree/main/stable-diffusion-finetuning">Examples Repo</a>!
-                    <p>Trained by <a href="justinpinkney.com">Justin Pinkney</a> (<a href="https://twitter.com/Buntworthy">@Buntworthy</a>) at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
+                    <p>Trained by Eole Cervenka at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
                </div>
            """
         )
