@@ -108,7 +108,7 @@ css = """
             margin: 1.25em 0 .25em 0;
             font-weight: bold;
             font-size: 115%;
-        }George Washington
+        }
 """
 
 block = gr.Blocks(css=css)
