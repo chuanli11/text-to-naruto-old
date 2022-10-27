@@ -134,7 +134,7 @@ examples = [
 with block:
     gr.HTML(
         """
-            <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+            <div style="text-align: center; max-width: 650px; margin: 30;">
               <div>
                 <img class="logo" src="https://lambdalabs.com/static/images/lambda-logo.svg" alt="Lambda Logo"
                     style="margin: auto; max-width: 7rem;">
