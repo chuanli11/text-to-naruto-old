@@ -137,12 +137,12 @@ with block:
             <div style="text-align: center; max-width: 650px; margin: 0 auto;">
               <div>
                 <img class="logo" src="https://lambdalabs.com/static/images/lambda-logo.svg" alt="Lambda Logo"
-                    style="margin: auto; max-width: 7rem;">
+                    style="margin: 30px; max-width: 7rem;">
                 <h1 style="font-weight: 900; font-size: 3rem;">
                   Naruto text to image
                 </h1>
               </div>
-              <p style="margin-bottom: 10px; font-size: 94%">
+              <p style="margin-bottom: 30px; font-size: 94%">
               Generate new Naruto anime character from a text description,
                 <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">created by Lambda Labs</a>.
               </p>
