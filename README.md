@@ -1,6 +1,6 @@
 ---
 title: Text to Naruto
-emoji: 📉
+emoji: 🥷🏿
 colorFrom: indigo
 colorTo: green
 sdk: gradio
