@@ -134,15 +134,15 @@ examples = [
 with block:
     gr.HTML(
         """
-            <div style="text-align: center; max-width: 650px; margin: 0 auto;">
+            <div style="text-align: center; max-width: 650px; margin: 30;">
               <div>
                 <img class="logo" src="https://lambdalabs.com/static/images/lambda-logo.svg" alt="Lambda Logo"
-                    style="margin: auto; max-width: 7rem;">
-                <h1 style="font-weight: 900; font-size: 3rem;">
+                    style="margin: 30; max-width: 7rem;">
+                <h1 style="font-weight: 900; font-size: 3rem; margin: 30;">
                   Pokémon text to image
                 </h1>
               </div>
-              <p style="margin-bottom: 10px; font-size: 94%">
+              <p style="margin-bottom: 10px; font-size: 94%; margin: 30">
               Generate new Pokémon from a text description,
                 <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">created by Lambda Labs</a>.
               </p>
