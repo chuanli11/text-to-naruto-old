@@ -1,5 +1,5 @@
 ---
-title: Sd Naruto Diffuser
+title: Text to Naruto
 emoji: 📉
 colorFrom: indigo
 colorTo: green
