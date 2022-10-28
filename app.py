@@ -9,7 +9,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-pipe = StableDiffusionPipeline.from_pretrained("eolecvk/sd-naruto-diffusers", torch_dtype=dtype)
+pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
 pipe = pipe.to(device)
 
 
@@ -193,7 +193,7 @@ with block:
                     </p>
                 </div>
                 <div class="acknowledgments">
-                    <p> Put in a text prompt and generate your own Naruto anime character, no "prompt engineering" required!
+                    <p> Put in a text prompt and generate your own Naruto anime character!
                     <p>If you want to find out how we made this model read about it in <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">this blog post</a>.
                     <p>And if you want to train your own Stable Diffusion variants, see our <a href="https://github.com/LambdaLabsML/examples/tree/main/stable-diffusion-finetuning">Examples Repo</a>!
                     <p>Trained by Eole Cervenka at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
