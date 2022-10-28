@@ -9,15 +9,21 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-if device == "cuda":
+try:
+    if device == "cuda":
+        pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
+        
+    else:
+        pipe = StableDiffusionOnnxPipeline.from_pretrained(
+            "lambdalabs/sd-naruto-diffusers",
+            revision="onnx",
+            provider="CPUExecutionProvider"
+        )
+
+# onnx model revision not available
+except:
     pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
     
-else:
-    pipe = StableDiffusionOnnxPipeline.from_pretrained(
-        "lambdalabs/sd-naruto-diffusers",
-        revision="onnx",
-        provider="CPUExecutionProvider"
-    )
 pipe = pipe.to(device)
 
 # Sometimes the nsfw checker is confused by the Naruto images, you can disable
