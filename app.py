@@ -187,7 +187,7 @@ with block:
 
         with gr.Row(elem_id="advanced-options"):
             samples = gr.Slider(label="Images", minimum=1, maximum=4, value=2, step=1)
-            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=5)
+            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=45, step=5)
             scale = gr.Slider(
                 label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1
             )
