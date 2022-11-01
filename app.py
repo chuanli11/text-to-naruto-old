@@ -128,19 +128,19 @@ block = gr.Blocks(css=css)
 
 examples = [
     [
-        'Yoda',
+        'Portrait of Bill Gates as a ninja',
         2,
         7.5,
     ],
     [
-        'Abraham Lincoln',
+        'John Snow as a ninja',
         2,
         7.5,
     ],
     [
-        'George Washington',
+        'Leo Messi in the style of Naruto',
         2,
-        7,
+        7.5,
     ],
 ]
 
