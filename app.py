@@ -207,6 +207,7 @@ with block:
                 </div>
                 <div class="acknowledgments">
                     <p> Put in a text prompt and generate your own Naruto anime character!
+                    <p> Here are some <a href="https://huggingface.co/lambdalabs/sd-naruto-diffusers">examples</a> of generated images
                     <p>If you want to find out how we made this model read about it in <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">this blog post</a>.
                     <p>And if you want to train your own Stable Diffusion variants, see our <a href="https://github.com/LambdaLabsML/examples/tree/main/stable-diffusion-finetuning">Examples Repo</a>!
                     <p>Trained by Eole Cervenka at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
