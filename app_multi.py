@@ -2,14 +2,14 @@ from contextlib import nullcontext
 import gradio as gr
 import torch
 from torch import autocast
-from diffusers import StableDiffusionPipeline, StableDiffusionOnnxPipeline
-
+from diffusers import StableDiffusionPipeline
+from ray.serve.gradio_integrations import GradioServer
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-# Sometimes the nsfw checker is confused by the Pokémon images, you can disable
+# Sometimes the nsfw checker is confused by the Naruto images, you can disable
 try:
     if device == "cuda":
         pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
@@ -216,4 +216,7 @@ with block:
            """
         )
 
-block.launch()
+#block.launch()
+
+io = block
+app = GradioServer.options(num_replicas=2, ray_actor_options={"num_cpus": 6.0, "num_gpus" : 1.0}).bind(io)
