@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 --extra-index-url https://download.pytorch.org/whl/cu116
 torch
 diffusers
@@ -9,3 +10,13 @@ gradio==3.5
 
 # accelerate
 # ray[serve]
+=======
+--extra-index-url https://download.pytorch.org/whl/cu113
+torch==1.12.1+cu113
+diffusers==0.3.0
+transformers==4.22.2
+scipy==1.9.1
+ftfy==6.1.1
+datasets==2.5.1
+onnxruntime==1.12.1
+>>>>>>> a680d9594c0ff489aea01c48f81a693c55dffb9d

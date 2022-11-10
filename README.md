@@ -1,10 +1,10 @@
 ---
-title: Text To Naruto
-emoji: 🏃
-colorFrom: yellow
-colorTo: indigo
+title: Text to Naruto
+emoji: 🥷🏿
+colorFrom: indigo
+colorTo: green
 sdk: gradio
-sdk_version: 3.4
+sdk_version: 3.5
 app_file: app.py
 pinned: false
 ---

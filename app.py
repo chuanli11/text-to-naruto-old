@@ -2,18 +2,43 @@ from contextlib import nullcontext
 import gradio as gr
 import torch
 from torch import autocast
+<<<<<<< HEAD
 from diffusers import StableDiffusionPipeline
+=======
+from diffusers import StableDiffusionPipeline, StableDiffusionOnnxPipeline
+>>>>>>> a680d9594c0ff489aea01c48f81a693c55dffb9d
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
+<<<<<<< HEAD
 pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-pokemon-diffusers", torch_dtype=dtype)
 pipe = pipe.to(device)
 
 
 # Sometimes the nsfw checker is confused by the Pokémon images, you can disable
+=======
+try:
+    if device == "cuda":
+        pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
+        
+    else:
+        pipe = StableDiffusionOnnxPipeline.from_pretrained(
+            "lambdalabs/sd-naruto-diffusers",
+            revision="onnx",
+            provider="CPUExecutionProvider"
+        )
+
+# onnx model revision not available
+except:
+    pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
+    
+pipe = pipe.to(device)
+
+# Sometimes the nsfw checker is confused by the Naruto images, you can disable
+>>>>>>> a680d9594c0ff489aea01c48f81a693c55dffb9d
 # it at your own risk here
 disable_safety = True
 
@@ -115,35 +140,35 @@ block = gr.Blocks(css=css)
 
 examples = [
     [
-        'Yoda',
+        'Bill Gates with a hoodie',
         2,
         7.5,
     ],
     [
-        'Abraham Lincoln',
+        'Jon Snow ninja portrait',
         2,
         7.5,
     ],
     [
-        'George Washington',
+        'Leo Messi in the style of Naruto',
         2,
-        7,
+        7.5
     ],
 ]
 
 with block:
     gr.HTML(
         """
-            <div style="text-align: center; max-width: 650px; margin: 30;">
+            <div style="text-align: center; max-width: 650px; margin: 0 auto;">
               <div>
-                <img class="logo" src="https://lambdalabs.com/static/images/lambda-logo.svg" alt="Lambda Logo"
-                    style="margin: 30; max-width: 7rem;">
-                <h1 style="font-weight: 900; font-size: 3rem; margin: 30;">
-                  Pokémon text to image
+                <img class="logo" src="https://lambdalabs.com/hubfs/logos/lambda-logo.svg" alt="Lambda Logo"
+                    style="margin: auto; max-width: 7rem;">
+                <h1 style="font-weight: 900; font-size: 3rem;">
+                  Naruto text to image
                 </h1>
               </div>
-              <p style="margin-bottom: 10px; font-size: 94%; margin: 30">
-              Generate new Pokémon from a text description,
+              <p style="margin-bottom: 10px; font-size: 94%">
+              Generate new Naruto anime character from a text description,
                 <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">created by Lambda Labs</a>.
               </p>
             </div>
@@ -174,7 +199,7 @@ with block:
 
         with gr.Row(elem_id="advanced-options"):
             samples = gr.Slider(label="Images", minimum=1, maximum=4, value=2, step=1)
-            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=5)
+            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=45, step=5)
             scale = gr.Slider(
                 label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1
             )
@@ -193,10 +218,11 @@ with block:
                     </p>
                 </div>
                 <div class="acknowledgments">
-                    <p> Put in a text prompt and generate your own Pokémon character, no "prompt engineering" required!
+                    <p> Put in a text prompt and generate your own Naruto anime character!
+                    <p> Here are some <a href="https://huggingface.co/lambdalabs/sd-naruto-diffusers">examples</a> of generated images.
                     <p>If you want to find out how we made this model read about it in <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">this blog post</a>.
                     <p>And if you want to train your own Stable Diffusion variants, see our <a href="https://github.com/LambdaLabsML/examples/tree/main/stable-diffusion-finetuning">Examples Repo</a>!
-                    <p>Trained by <a href="justinpinkney.com">Justin Pinkney</a> (<a href="https://twitter.com/Buntworthy">@Buntworthy</a>) at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
+                    <p>Trained by Eole Cervenka at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
                </div>
            """
         )
