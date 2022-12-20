@@ -2,39 +2,17 @@ from contextlib import nullcontext
 import gradio as gr
 import torch
 from torch import autocast
-from diffusers import StableDiffusionPipeline, StableDiffusionOnnxPipeline
+from diffusers import StableDiffusionPipeline
 
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-# Sometimes the nsfw checker is confused by the Pokémon images, you can disable
-try:
-    if device == "cuda":
-        pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
-        
-    else:
-        pipe = StableDiffusionOnnxPipeline.from_pretrained(
-            "lambdalabs/sd-naruto-diffusers",
-            revision="onnx",
-            provider="CPUExecutionProvider"
-        )
-
-# onnx model revision not available
-except:
-    pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
-    
+model_id = 'eolecvk/dreambooth-avatar'
+pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=dtype)
 pipe = pipe.to(device)
 
-# Sometimes the nsfw checker is confused by the Naruto images, you can disable
-# it at your own risk here
-disable_safety = True
-
-if disable_safety:
-  def null_safety(images, **kwargs):
-      return images, False
-  pipe.safety_checker = null_safety
 
 
 def infer(prompt, n_samples, steps, scale):
@@ -129,19 +107,19 @@ block = gr.Blocks(css=css)
 
 examples = [
     [
-        'Bill Gates with a hoodie',
+        'Jeff Bezos, avatarart style person',
         2,
         7.5,
     ],
     [
-        'Jon Snow ninja portrait',
+        'Elon Musk, avatarart style person',
         2,
         7.5,
     ],
     [
-        'Leo Messi in the style of Naruto',
+        'Bill Gates, avatarart style person',
         2,
-        7.5
+        7,
     ],
 ]
 
@@ -153,13 +131,9 @@ with block:
                 <img class="logo" src="https://lambdalabs.com/hubfs/logos/lambda-logo.svg" alt="Lambda Logo"
                     style="margin: auto; max-width: 7rem;">
                 <h1 style="font-weight: 900; font-size: 3rem;">
-                  Naruto text to image
+                  Avatar text to image
                 </h1>
               </div>
-              <p style="margin-bottom: 10px; font-size: 94%">
-              Generate new Naruto anime character from a text description,
-                <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">created by Lambda Labs</a>.
-              </p>
             </div>
         """
     )
@@ -188,7 +162,7 @@ with block:
 
         with gr.Row(elem_id="advanced-options"):
             samples = gr.Slider(label="Images", minimum=1, maximum=4, value=2, step=1)
-            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=45, step=5)
+            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=50, step=5)
             scale = gr.Slider(
                 label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1
             )
@@ -207,10 +181,8 @@ with block:
                     </p>
                 </div>
                 <div class="acknowledgments">
-                    <p> Put in a text prompt and generate your own Naruto anime character!
-                    <p> Here are some <a href="https://huggingface.co/lambdalabs/sd-naruto-diffusers">examples</a> of generated images.
+                    <p> Put in a text prompt and generate your own Avatar art style image!
                     <p>If you want to find out how we made this model read about it in <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">this blog post</a>.
-                    <p>And if you want to train your own Stable Diffusion variants, see our <a href="https://github.com/LambdaLabsML/examples/tree/main/stable-diffusion-finetuning">Examples Repo</a>!
                     <p>Trained by Eole Cervenka at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
                </div>
            """
