@@ -9,10 +9,18 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 context = autocast if device == "cuda" else nullcontext
 dtype = torch.float16 if device == "cuda" else torch.float32
 
-model_id = 'eolecvk/dreambooth-avatar'
-pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=dtype)
+pipe = StableDiffusionPipeline.from_pretrained("lambdalabs/sd-naruto-diffusers", torch_dtype=dtype)
 pipe = pipe.to(device)
 
+
+# Sometimes the nsfw checker is confused by the Naruto images, you can disable
+# it at your own risk here
+# disable_safety = True
+
+# if disable_safety:
+#   def null_safety(images, **kwargs):
+#       return images, False
+#   pipe.safety_checker = null_safety
 
 
 def infer(prompt, n_samples, steps, scale):
@@ -107,17 +115,17 @@ block = gr.Blocks(css=css)
 
 examples = [
     [
-        'Jeff Bezos, avatarart style person',
+        'Yoda',
         2,
         7.5,
     ],
     [
-        'Elon Musk, avatarart style person',
+        'Abraham Lincoln',
         2,
         7.5,
     ],
     [
-        'Bill Gates, avatarart style person',
+        'George Washington',
         2,
         7,
     ],
@@ -131,9 +139,13 @@ with block:
                 <img class="logo" src="https://lambdalabs.com/hubfs/logos/lambda-logo.svg" alt="Lambda Logo"
                     style="margin: auto; max-width: 7rem;">
                 <h1 style="font-weight: 900; font-size: 3rem;">
-                  Avatar text to image
+                  Naruto text to image
                 </h1>
               </div>
+              <p style="margin-bottom: 10px; font-size: 94%">
+              Generate new Naruto anime character from a text description,
+                <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">created by Lambda Labs</a>.
+              </p>
             </div>
         """
     )
@@ -162,7 +174,7 @@ with block:
 
         with gr.Row(elem_id="advanced-options"):
             samples = gr.Slider(label="Images", minimum=1, maximum=4, value=2, step=1)
-            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=50, step=5)
+            steps = gr.Slider(label="Steps", minimum=5, maximum=50, value=25, step=5)
             scale = gr.Slider(
                 label="Guidance Scale", minimum=0, maximum=50, value=7.5, step=0.1
             )
@@ -181,8 +193,9 @@ with block:
                     </p>
                 </div>
                 <div class="acknowledgments">
-                    <p> Put in a text prompt and generate your own Avatar art style image!
+                    <p> Put in a text prompt and generate your own Naruto anime character, no "prompt engineering" required!
                     <p>If you want to find out how we made this model read about it in <a href="https://lambdalabs.com/blog/how-to-fine-tune-stable-diffusion-how-we-made-the-text-to-pokemon-model-at-lambda/">this blog post</a>.
+                    <p>And if you want to train your own Stable Diffusion variants, see our <a href="https://github.com/LambdaLabsML/examples/tree/main/stable-diffusion-finetuning">Examples Repo</a>!
                     <p>Trained by Eole Cervenka at <a href="https://lambdalabs.com/">Lambda Labs</a>.</p>
                </div>
            """
